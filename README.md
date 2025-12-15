@@ -26,20 +26,6 @@ This POC consists of three main components:
 
 ## Architecture
 
-### System Overview
-
-Customer Chat (React SPA)
-↓ REST API, Socket.io
-↓
-Express Backend
-├── REST Controllers
-├── Repositories
-├── SQLite DB
-└── Socket.io (Broadcasts)
-↑
-↑ REST API, Socket.io
-Officer Console (React SPA)
-
 ### Component Details
 
 Backend Structure:
