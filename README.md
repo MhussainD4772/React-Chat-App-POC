@@ -62,8 +62,6 @@ npm install
 npm run dev
 ```
 
-Backend runs on http://localhost:3001
-
 ### 2. Start Customer Chat
 
 ```bash
@@ -72,8 +70,6 @@ npm install
 npm run dev
 ```
 
-Customer chat runs on http://localhost:5173
-
 ### 3. Start Officer Console
 
 ```bash
@@ -81,8 +77,6 @@ cd officer-console
 npm install
 npm run dev
 ```
-
-Officer console runs on http://localhost:5174
 
 ```
 
