@@ -63,10 +63,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     try {
       emitQueueChatCreated(io, {
-        chatId: newChat.id,
+        id: newChat.id,
         customerId: newChat.customerId,
         assignedOfficerId: newChat.assignedOfficerId,
         status: newChat.status,
+        createdAt: newChat.createdAt,
       });
     } catch (error) {
       // Socket failures must not break REST endpoints
