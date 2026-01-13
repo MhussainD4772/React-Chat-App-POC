@@ -3,7 +3,7 @@ import { chatRepo } from "../repositories/chatRepo";
 import { officerRepo } from "../repositories/officerRepo";
 import { randomUUID } from "crypto";
 import { io } from "../server";
-import { emitQueueChatCreated } from "../socket";
+import { emitQueueChatCreated, emitQueueChatClaimed } from "../socket";
 
 interface LoginRequest {
   customerId: string;
@@ -44,6 +44,12 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         officerId,
         "assigned"
       );
+
+      try {
+        emitQueueChatClaimed(io, newChat.id, officerId);
+      } catch (error) {
+        // Socket failures must not break REST endpoints
+      }
 
       res.json({
         chatId: newChat.id,

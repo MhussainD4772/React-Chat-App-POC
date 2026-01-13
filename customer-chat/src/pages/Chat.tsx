@@ -7,6 +7,7 @@ import {
   Message,
 } from "../api";
 import { socket } from "../socket";
+import UserActivityPopup from "../UserActivityPopUp";
 
 function Chat(): JSX.Element {
   const location = useLocation();
@@ -18,6 +19,7 @@ function Chat(): JSX.Element {
   const [messageInput, setMessageInput] = useState("");
   const [sendError, setSendError] = useState<string | null>(null);
   const [isSending, setIsSending] = useState(false);
+  const [isUserActivityOpen, setIsUserActivityOpen] = useState(false);
 
   useEffect(() => {
     if (!chatData?.chatId) {
@@ -142,8 +144,27 @@ function Chat(): JSX.Element {
           ← Back to Login
         </button>
         <h1>Chat</h1>
-        <div className="chat-meta">
+        <div
+          className="chat-meta"
+          style={{ display: "flex", alignItems: "center", gap: "12px" }}
+        >
           <span>Status: {chatData.status}</span>
+          <button
+            onClick={() => setIsUserActivityOpen(true)}
+            className="user-activity-button"
+            type="button"
+            style={{
+              padding: "6px 12px",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "14px",
+            }}
+          >
+            User Activity
+          </button>
         </div>
       </div>
 
@@ -189,6 +210,11 @@ function Chat(): JSX.Element {
           </button>
         </form>
       </div>
+
+      <UserActivityPopup
+        open={isUserActivityOpen}
+        onClose={() => setIsUserActivityOpen(false)}
+      />
     </div>
   );
 }

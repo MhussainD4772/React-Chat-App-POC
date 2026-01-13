@@ -63,15 +63,22 @@ function Dashboard(): JSX.Element {
       setUnassignedChats((prev) => [...prev, chat]);
     };
 
-    const handleQueueChatClaimed = (data: {
+    const handleQueueChatClaimed = async (data: {
       chatId: string;
       officerId: string;
     }) => {
       setUnassignedChats((prev) =>
         prev.filter((chat) => chat.id !== data.chatId)
       );
-      // If claimed by this officer, REST response already updated state
-      // No refetch needed - REST is source of truth
+      // If claimed by this officer (from queue or direct assignment), update assigned chats
+      if (data.officerId === officerId) {
+        try {
+          const updatedAssigned = await fetchAssignedChats(officerId);
+          setAssignedChats(updatedAssigned);
+        } catch (err) {
+          // Silent fail - REST is source of truth, will be correct on next refresh
+        }
+      }
     };
 
     const handleNewMessage = (message: any) => {
